@@ -7,6 +7,7 @@ import { saveMeeting } from '@/lib/store';
 import crypto from 'node:crypto';
 
 const ParticipantSchema = z.object({
+  id: z.string(),
   name: z.string(),
   personaId: z.string(),
   systemInstruction: z.string().optional(),
