@@ -8,13 +8,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Uncut+Sans:wght@700&display=swap" rel="stylesheet" />
-      </head>
-      <body className="bg-black text-slate-300" style={{ fontFamily: "'JetBrains Mono', monospace" }}>{children}</body>
+    <html lang="en">
+      <body className="max-w-4xl mx-auto p-6">{children}</body>
     </html>
   )
 }

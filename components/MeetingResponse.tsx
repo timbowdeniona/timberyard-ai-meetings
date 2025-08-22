@@ -1,50 +1,53 @@
 'use client';
 
+import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import remarkBreaks from 'remark-breaks';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-type MeetingResponseProps = {
-  transcript: string;
+type Props = {
+  response: string;
 };
 
-export default function MeetingResponse({ transcript }: MeetingResponseProps) {
+export default function MeetingResponse({ response }: Props) {
   return (
-    <div className="prose prose-invert prose-sm sm:prose-base max-w-none 
-                   prose-headings:font-bold prose-headings:text-green-400 
-                   prose-p:text-slate-300 
-                   prose-a:text-green-400 prose-a:no-underline hover:prose-a:underline
-                   prose-strong:text-slate-200 prose-strong:font-semibold
-                   prose-ul:list-disc prose-ul:pl-6
-                   prose-li:marker:text-green-500
-                   prose-blockquote:border-l-green-500 prose-blockquote:text-slate-400
-                   prose-code:bg-black/50 prose-code:text-green-300 prose-code:p-1 prose-code:rounded-sm prose-code:font-mono
-                   prose-pre:bg-black/50 prose-pre:border prose-pre:border-slate-700 prose-pre:rounded-lg prose-pre:p-4">
+    <div className="space-y-6">
       <ReactMarkdown
-        remarkPlugins={[remarkGfm, remarkBreaks]}
+        remarkPlugins={[remarkGfm]}
         components={{
-          code({ node, inline, className, children, ...props }) {
-            const match = /language-(\w+)/.exec(className || '');
-            return !inline && match ? (
-              <SyntaxHighlighter
-                style={vscDarkPlus}
-                language={match[1]}
-                PreTag="div"
-                {...props}
-              >
-                {String(children).replace(/\n$/, '')}
-              </SyntaxHighlighter>
-            ) : (
-              <code className={className} {...props}>
-                {children}
-              </code>
-            );
-          },
+          h2: ({ node, ...props }) => (
+            <h2 className="text-xl font-bold mt-6 border-b pb-1" {...props} />
+          ),
+          h3: ({ node, ...props }) => (
+            <h3 className="text-lg font-semibold mt-4" {...props} />
+          ),
+          ul: ({ node, ...props }) => (
+            <ul className="list-disc pl-6 space-y-1" {...props} />
+          ),
+          ol: ({ node, ...props }) => (
+            <ol className="list-decimal pl-6 space-y-1" {...props} />
+          ),
+          li: ({ node, ...props }) => (
+            <li className="leading-relaxed" {...props} />
+          ),
+          strong: ({ node, ...props }) => (
+            <strong className="font-semibold text-gray-900" {...props} />
+          ),
+          em: ({ node, ...props }) => (
+            <em className="italic text-gray-700" {...props} />
+          ),
+          p: ({ node, ...props }) => (
+            <p className="leading-relaxed" {...props} />
+          ),
+          hr: () => <hr className="my-6 border-gray-300" />,
+          blockquote: ({ node, ...props }) => (
+            <blockquote
+              className="border-l-4 border-gray-300 pl-4 italic text-gray-600"
+              {...props}
+            />
+          ),
         }}
       >
-        {transcript}
+        {response}
       </ReactMarkdown>
     </div>
   );
