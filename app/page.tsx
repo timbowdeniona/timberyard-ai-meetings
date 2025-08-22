@@ -1,5 +1,6 @@
 'use client';
 import MeetingForm from '@/components/MeetingForm';
+import Link from 'next/link';
 import MeetingResponse from '@/components/MeetingResponse';
 import Spinner from '@/components/spinner';
 import { useState } from 'react';
@@ -26,6 +27,11 @@ export default function Page() {
         <div className="text-center">
           <h1 style={{ fontFamily: "'Uncut Sans', sans-serif" }} className="text-4xl font-bold text-green-400 tracking-tight sm:text-5xl">Virtual Three Amigos (Gemini)</h1>
           <p className="mt-4 text-lg text-slate-400 max-w-2xl mx-auto">Create a meeting, invite personas (Dev, QA, PO, PM or custom), paste a Jira story, and generate a concise transcript with acceptance criteria.</p>
+          <div className="mt-6">
+            <Link href="/personas" className="text-green-400 hover:text-green-300 transition-colors text-sm font-semibold">
+              Browse Personas &rarr;
+            </Link>
+          </div>
         </div>
         <MeetingForm onCreated={handleCreated} setLoading={handleLoading} loading={loading} />
         {loading && <Spinner />}
