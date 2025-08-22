@@ -1,5 +1,6 @@
 'use client';
 import MeetingForm from '@/components/MeetingForm';
+import MeetingResponse from '@/components/MeetingResponse';
 import Spinner from '@/components/spinner';
 import { useState } from 'react';
 
@@ -20,18 +21,18 @@ export default function Page() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <main className="bg-white p-6 sm:p-10 rounded-2xl shadow-xl space-y-8">
+    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-24">
+      <main className="bg-[#111111] p-6 sm:p-10 rounded-lg border border-green-500/20 shadow-2xl shadow-green-500/5 space-y-8">
         <div className="text-center">
-          <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight sm:text-5xl">Virtual Three Amigos (Gemini)</h1>
-          <p className="mt-4 text-lg text-slate-500">Create a meeting, invite personas (Dev, QA, PO, PM or custom), paste a Jira story, and generate a concise transcript with acceptance criteria.</p>
+          <h1 style={{ fontFamily: "'Uncut Sans', sans-serif" }} className="text-4xl font-bold text-green-400 tracking-tight sm:text-5xl">Virtual Three Amigos (Gemini)</h1>
+          <p className="mt-4 text-lg text-slate-400 max-w-2xl mx-auto">Create a meeting, invite personas (Dev, QA, PO, PM or custom), paste a Jira story, and generate a concise transcript with acceptance criteria.</p>
         </div>
-        <MeetingForm onCreated={handleCreated} setLoading={handleLoading} loading={false} />
+        <MeetingForm onCreated={handleCreated} setLoading={handleLoading} loading={loading} />
         {loading && <Spinner />}
         {last && !loading && (
-          <section className="space-y-4 pt-8 border-t border-slate-200">
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">Transcript</h2>
-            <div className="bg-slate-100/75 border border-slate-200 rounded-lg p-4 sm:p-6 text-slate-700 whitespace-pre-wrap font-mono text-sm leading-relaxed">{last.transcript}</div>
+          <section className="space-y-4 pt-8 border-t border-green-500/20">
+            <h2 style={{ fontFamily: "'Uncut Sans', sans-serif" }} className="text-2xl sm:text-3xl font-bold text-green-400">Transcript</h2>
+            <MeetingResponse transcript={last.transcript} />
           </section>
         )}
       </main>

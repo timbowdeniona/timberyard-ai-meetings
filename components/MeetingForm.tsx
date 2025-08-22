@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { PRESET_PERSONAS } from './personaPresets';
 
 type ParticipantInput = {
+  id: string;
   name: string;
   personaId: string;
   systemInstruction?: string;
@@ -19,7 +20,7 @@ export default function MeetingForm({ onCreated, setLoading, loading }: MeetingF
   const [story, setStory] = useState('As a <user>, I want <capability> so that <benefit>.');
   const [goals, setGoals] = useState('Agree acceptance criteria, surface risks, estimate rough size.');
   const [participants, setParticipants] = useState<ParticipantInput[]>(
-    PRESET_PERSONAS.filter(p => ['dev', 'qa', 'po'].includes(p.id)).map(p => ({ name: p.name, personaId: p.id }))
+    PRESET_PERSONAS.filter(p => ['dev', 'qa', 'po'].includes(p.id)).map(p => ({ id: crypto.randomUUID(), name: p.name, personaId: p.id }))
   );
   const [error, setError] = useState<string | null>(null);
 
@@ -29,7 +30,7 @@ export default function MeetingForm({ onCreated, setLoading, loading }: MeetingF
   function addParticipant() {
     const pm = PRESET_PERSONAS.find(p => p.id === 'pm');
     if (pm) {
-      setParticipants(prev => [...prev, { name: pm.name, personaId: pm.id }]);
+      setParticipants(prev => [...prev, { id: crypto.randomUUID(), name: pm.name, personaId: pm.id }]);
     }
   }
   function removeParticipant(i:number) {
@@ -73,7 +74,7 @@ export default function MeetingForm({ onCreated, setLoading, loading }: MeetingF
       <div className="space-y-4">
         <label className="block text-sm font-medium text-slate-400">Participants</label>
         {participants.map((p, i) => (
-          <div key={i} className="bg-black/30 border border-slate-800 rounded-lg p-4 space-y-3">
+          <div key={p.id} className="bg-black/30 border border-slate-800 rounded-lg p-4 space-y-3">
             <div className="flex gap-2">
               <input className="block w-full rounded-md bg-slate-900 border-slate-700 text-slate-400 placeholder:text-slate-600 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm" placeholder="Display name" value={p.name} onChange={e=>updateParticipant(i,{name:e.target.value})} />
               <select className="block w-full rounded-md bg-slate-900 border-slate-700 text-slate-400 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm" value={p.personaId} onChange={e=>updateParticipant(i,{personaId:e.target.value})}>
