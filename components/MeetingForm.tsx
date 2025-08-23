@@ -16,7 +16,7 @@ type MeetingFormProps = {
 };
 
 export default function MeetingForm({ onCreated, setLoading, loading }: MeetingFormProps) {
-  const [title, setTitle] = useState('Three Amigos: User Story Refinement');
+  const [title, setTitle] = useState('Three Amigos: User Story Refinement for Agile');
   const [story, setStory] = useState('As a <user>, I want <capability> so that <benefit>.');
   const [goals, setGoals] = useState('Agree acceptance criteria, surface risks, estimate rough size.');
   const [participants, setParticipants] = useState<ParticipantInput[]>(
